@@ -1,1 +1,21 @@
+# Compiled Java class files
 *.class
+
+# Log files
+*.log
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Virtual machine logs
+hs_err_pid*
+
+# IDE & Editor files
+.idea/
+.vscode/
+*.iml
+bin/
+build/
+target/
