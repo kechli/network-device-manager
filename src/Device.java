@@ -1,16 +1,17 @@
-public class Device {
+public abstract class Device {
     private String name;
     private String ipAddress;
-    private boolean isOnline; // Νέο πεδίο
+    private boolean isOnline;
 
-    // Ενημερωμένος Constructor
     public Device(String name, String ipAddress) {
         this.name = name;
         this.ipAddress = ipAddress;
-        this.isOnline = false; // Προεπιλεγμένη τιμή: offline
+        this.isOnline = false;
     }
 
-    // Getters & Setters
+    // Abstract μέθοδος: Κάθε υποκλάση ΠΡΕΠΕΙ να επιστρέφει τον τύπο της συσκευής
+    public abstract String getDeviceType();
+
     public String getName() {
         return name;
     }
@@ -23,13 +24,12 @@ public class Device {
         return isOnline;
     }
 
-    public void setOnline(boolean online) {
-        isOnline = online;
+    public void setOnline(boolean isOnline) {
+        this.isOnline = isOnline;
     }
 
-    // Νέα μέθοδος για εμφάνιση όλων των λεπτομερειών
     public void printDetails() {
         String status = isOnline ? "ONLINE" : "OFFLINE";
-        System.out.println("Device: " + name + " | IP: " + ipAddress + " | Status: " + status);
+        System.out.println(getDeviceType() + ": " + name + " | IP: " + ipAddress + " | Status: " + status);
     }
 }
