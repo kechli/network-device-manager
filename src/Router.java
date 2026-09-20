@@ -1,4 +1,4 @@
-public class Router extends Device implements Pingable {
+public class Router extends Device implements Pingable, Configurable {
     private int portCount;
 
     public Router(String name, String ipAddress, int portCount) {
@@ -19,7 +19,7 @@ public class Router extends Device implements Pingable {
         this.portCount = portCount;
     }
 
-    // Υλοποίηση της μεθόδου του Interface Pingable
+    // Υλοποίηση Pingable
     @Override
     public boolean ping() {
         if (isOnline()) {
@@ -29,6 +29,17 @@ public class Router extends Device implements Pingable {
             System.out.println("PING Failed: " + getName() + " (" + getIpAddress() + ") is unreachable.");
             return false;
         }
+    }
+
+    // Υλοποίηση Configurable
+    @Override
+    public void setHostname(String hostname) {
+        System.out.println("[CONFIG] Router hostname changed from '" + getName() + "' to '" + hostname + "'");
+    }
+
+    @Override
+    public void updateIpAddress(String newIp) {
+        System.out.println("[CONFIG] Updating Router IP from " + getIpAddress() + " to " + newIp);
     }
 
     @Override

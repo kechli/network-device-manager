@@ -1,28 +1,26 @@
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Device> devices = new ArrayList<>();
+        // 1. Αρχικοποίηση Βάσης
+        DatabaseManager.initializeDatabase();
 
-        devices.add(new Switch("Access Switch", "192.168.1.2", 48));
-        devices.add(new Switch("Core Switch", "192.168.1.3", 24));
-        devices.add(new Router("Core Router", "192.168.1.1", 8));
+        // 2. Δημιουργία αντικειμένων
+        Router r1 = new Router("Gateway Router", "192.168.1.1", 8);
+        Switch s1 = new Switch("Main Switch", "192.168.1.2", 24);
+        r1.setOnline(true);
 
-        // Αλλάζουμε την κατάσταση του Core Router σε ONLINE
-        devices.get(2).setOnline(true);
+        // 3. Αποθήκευση στη SQLite
+        System.out.println("\n--- SAVING TO DATABASE ---");
+        DeviceDAO.insertDevice(r1);
+        DeviceDAO.insertDevice(s1);
 
-        System.out.println("--- NETWORK DEVICE INVENTORY ---");
-        for (Device dev : devices) {
+        // 4. Ανάκτηση από τη SQLite
+        System.out.println("\n--- READING FROM DATABASE ---");
+        List<Device> loadedDevices = DeviceDAO.getAllDevices();
+
+        for (Device dev : loadedDevices) {
             dev.printDetails();
-        }
-
-        System.out.println("\n--- NETWORK DIAGNOSTICS (PING TEST) ---");
-        for (Device dev : devices) {
-            // Ελέγχουμε αν η συσκευή υλοποιεί το Interface Pingable
-            if (dev instanceof Pingable) {
-                Pingable pingableDevice = (Pingable) dev;
-                pingableDevice.ping();
-            }
         }
     }
 }
