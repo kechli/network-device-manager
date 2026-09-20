@@ -1,4 +1,4 @@
-public class Switch extends Device {
+public class Switch extends Device implements Pingable {
     private int portCount;
 
     public Switch(String name, String ipAddress, int portCount) {
@@ -13,5 +13,17 @@ public class Switch extends Device {
 
     public int getPortCount() {
         return portCount;
+    }
+
+    // Υλοποίηση της μεθόδου του Interface Pingable
+    @Override
+    public boolean ping() {
+        if (isOnline()) {
+            System.out.println("PING Success: " + getName() + " (" + getIpAddress() + ") responded in 1ms.");
+            return true;
+        } else {
+            System.out.println("PING Failed: " + getName() + " (" + getIpAddress() + ") is unreachable.");
+            return false;
+        }
     }
 }
