@@ -4,8 +4,9 @@
 # Log files
 *.log
 
-# Package Files
+# Package Files (Αγνοεί τα jar, αλλά ΚΡΑΤΑΕΙ τα jars στο φάκελο lib)
 *.jar
+!lib/*.jar
 *.war
 *.ear
 
@@ -19,4 +20,6 @@ hs_err_pid*
 bin/
 build/
 target/
+
+# Database files
 *.db

@@ -1,8 +1,13 @@
-public class Router extends Device implements Pingable, Configurable {
+public class Router extends Device implements Pingable {
     private int portCount;
 
-    public Router(String name, String ipAddress, int portCount) {
-        super(name, ipAddress);
+    public Router(int id,String name, String ipAddress,boolean isOnline, int portCount) {
+        super(id,name, ipAddress,isOnline);
+        this.portCount = portCount;
+    }
+
+    public Router(String name, String ipAddress, boolean isOnline, int portCount) {
+        super(0, name, ipAddress, isOnline);
         this.portCount = portCount;
     }
 
@@ -32,12 +37,11 @@ public class Router extends Device implements Pingable, Configurable {
     }
 
     // Υλοποίηση Configurable
-    @Override
+
     public void setHostname(String hostname) {
         System.out.println("[CONFIG] Router hostname changed from '" + getName() + "' to '" + hostname + "'");
     }
 
-    @Override
     public void updateIpAddress(String newIp) {
         System.out.println("[CONFIG] Updating Router IP from " + getIpAddress() + " to " + newIp);
     }
@@ -46,5 +50,10 @@ public class Router extends Device implements Pingable, Configurable {
     public void printDetails() {
         String status = isOnline() ? "ONLINE" : "OFFLINE";
         System.out.println(getDeviceType() + ": " + getName() + " | IP: " + getIpAddress() + " | Ports: " + portCount + " | Status: " + status);
+    }
+
+    @Override
+    public String getType() {
+        return "Router";
     }
 }

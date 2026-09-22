@@ -1,21 +1,26 @@
 public class Switch extends Device implements Pingable {
     private int portCount;
 
-    public Switch(String name, String ipAddress, int portCount) {
-        super(name, ipAddress);
+    public Switch(int id, String name, String ipAddress, boolean isOnline, int portCount) {
+        super(id, name, ipAddress, isOnline);
+        this.portCount = portCount;
+    }
+
+    public Switch(String name, String ipAddress, boolean isOnline, int portCount) {
+        super(0, name, ipAddress, isOnline);
         this.portCount = portCount;
     }
 
     @Override
-    public String getDeviceType() {
+    public String getDeviceType() { // <-- Αλλαγή από getType σε getDeviceType
         return "Switch";
     }
 
+    @Override
     public int getPortCount() {
         return portCount;
     }
 
-    // Υλοποίηση της μεθόδου του Interface Pingable
     @Override
     public boolean ping() {
         if (isOnline()) {
@@ -26,4 +31,11 @@ public class Switch extends Device implements Pingable {
             return false;
         }
     }
+
+    @Override
+    public String getType() {
+        return "Switch";
+    }
+
+    
 }
